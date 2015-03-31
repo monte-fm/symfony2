@@ -1,0 +1,3 @@
+*Create container*
+
+sudo docker run -i -t -d --name=name -p 80:80 -p 22:22 cristo/symfony2d /bin/bash
