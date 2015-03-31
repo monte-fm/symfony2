@@ -11,15 +11,15 @@ RUN sudo rm /etc/php5/fpm/php.ini
 COPY configs/php.ini /etc/php5/fpm/php.ini
 COPY configs/nginx/default /etc/nginx/sites-available/default
 
-#MySQL
-RUN echo "mysql-server mysql-server/root_password password pass" | debconf-set-selections
-RUN echo "mysql-server mysql-server/root_password_again password pass" | debconf-set-selections
+#MySQL install + password
+RUN echo "mysql-server mysql-server/root_password password root" | debconf-set-selections
+RUN echo "mysql-server mysql-server/root_password_again password root" | debconf-set-selections
 RUN sudo apt-get  install -y mysql-server mysql-client
 
 # SSH service
 RUN sudo apt-get install -y openssh-server openssh-client
 RUN sudo mkdir /var/run/sshd
-RUN echo 'root:pass' | chpasswd
+RUN echo 'root:root' | chpasswd
 #change 'pass' to your secret password
 RUN sed -i 's/PermitRootLogin without-password/PermitRootLogin yes/' /etc/ssh/sshd_config
 # SSH login fix. Otherwise user is kicked off after login
