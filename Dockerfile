@@ -36,10 +36,11 @@ COPY configs/bash.bashrc /etc/bash.bashrc
 RUN sudo apt-get install -y default-jre default-jdk
 RUN sudo apt-get install -y ant
 
-#composer
-RUN cd /usr/bin
+#Composer
+RUN cd /home
 RUN curl -sS https://getcomposer.org/installer | php
-RUN mv /usr/bin/composer.phar /usr/bin/composer
+RUN mv /home/composer.phar /usr/bin/composer
+RUN rm /home/composer.phar
 RUN apt-get update
 
 #aliases
