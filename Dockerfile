@@ -39,7 +39,7 @@ RUN sudo apt-get install -y ant
 #composer
 RUN cd /usr/bin
 RUN curl -sS https://getcomposer.org/installer | php
-RUN mv composer.phar composer
+RUN mv /usr/bin/composer.phar /usr/bin/composer
 RUN apt-get update
 
 #aliases
