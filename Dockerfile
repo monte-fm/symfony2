@@ -32,10 +32,15 @@ COPY configs/autostart.sh /root/autostart.sh
 RUN chmod +x /root/autostart.sh
 COPY configs/bash.bashrc /etc/bash.bashrc
 
+#ant install
+RUN sudo apt-get install -y default-jre default-jdk
+RUN sudo apt-get install -y ant
+
 #composer
 RUN cd /usr/bin
 RUN curl -sS https://getcomposer.org/installer | php
 RUN mv composer.phar composer
+RUN apt-get update
 
 #aliases
 RUN alias ll='ls -la'
