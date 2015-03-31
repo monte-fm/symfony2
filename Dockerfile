@@ -9,7 +9,7 @@ RUN apt-get install -y php5-json php5-mysql php5-gd php5-imagick
 RUN apt-get install -y php5-curl php5-mcrypt php5-dev php5-xdebug
 RUN sudo rm /etc/php5/fpm/php.ini
 COPY configs/php.ini /etc/php5/fpm/php.ini
-
+COPY configs/nginx/default /etc/nginx/sites-available
 #MySQL
 RUN echo "mysql-server mysql-server/root_password password pass" | debconf-set-selections
 RUN echo "mysql-server mysql-server/root_password_again password pass" | debconf-set-selections
