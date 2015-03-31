@@ -4,12 +4,13 @@ MAINTAINER Olexander Kutsenko <olexander.kutsenko@gmail.com>
 #install PHP
 RUN apt-get update -y
 RUN apt-get install -y git git-core vim nano mc nginx screen curl unzip
-RUN apt-get install -y wget php5 php5-cli php5-common php5-intl 
+RUN apt-get install -y wget php5 php5-fpm php5-cli php5-common php5-intl 
 RUN apt-get install -y php5-json php5-mysql php5-gd php5-imagick
 RUN apt-get install -y php5-curl php5-mcrypt php5-dev php5-xdebug
 RUN sudo rm /etc/php5/fpm/php.ini
 COPY configs/php.ini /etc/php5/fpm/php.ini
 COPY configs/nginx/default /etc/nginx/sites-available
+
 #MySQL
 RUN echo "mysql-server mysql-server/root_password password pass" | debconf-set-selections
 RUN echo "mysql-server mysql-server/root_password_again password pass" | debconf-set-selections
