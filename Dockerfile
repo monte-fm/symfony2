@@ -35,7 +35,7 @@ COPY configs/bash.bashrc /etc/bash.bashrc
 #composer
 RUN cd /usr/bin
 RUN curl -sS https://getcomposer.org/installer | php
-sudo mv composer.phar composer
+RUN mv composer.phar composer
 
 #aliases
 RUN alias ll='ls -la'
