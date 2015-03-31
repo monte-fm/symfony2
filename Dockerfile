@@ -38,4 +38,5 @@ RUN curl -sS https://getcomposer.org/installer | php
 #aliases
 alias ll='ls -la'
 
-
+#open ports
+EXPOSE 80 22
