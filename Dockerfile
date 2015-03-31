@@ -18,8 +18,8 @@ RUN sudo apt-get  install -y mysql-server mysql-client
 # SSH service
 RUN sudo apt-get install -y openssh-server openssh-client
 RUN sudo mkdir /var/run/sshd
-#chanche 'passwd' to your secret password
 RUN echo 'root:pass' | chpasswd
+#change 'pass' to your secret password
 RUN sed -i 's/PermitRootLogin without-password/PermitRootLogin yes/' /etc/ssh/sshd_config
 # SSH login fix. Otherwise user is kicked off after login
 RUN sed 's@session\s*required\s*pam_loginuid.so@session optional pam_loginuid.so@g' -i /etc/pam.d/sshd
