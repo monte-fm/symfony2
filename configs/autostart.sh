@@ -3,4 +3,4 @@ service php5-fpm start
 service nginx start
 service ssh start
 service mysql start
-EXPORT LC_ALL=C
+
