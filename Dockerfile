@@ -3,6 +3,7 @@ MAINTAINER Olexander Kutsenko <olexander.kutsenko@gmail.com>
 
 #install PHP
 RUN apt-get update -y
+RUN apt-get install -y software-properties-common python-software-properties
 RUN apt-get install -y git git-core vim nano mc nginx screen curl unzip
 RUN apt-get install -y wget php5 php5-fpm php5-cli php5-common php5-intl 
 RUN apt-get install -y php5-json php5-mysql php5-gd php5-imagick
