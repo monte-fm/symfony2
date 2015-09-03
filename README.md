@@ -66,6 +66,10 @@ Now need to edit your build.xml file to allow start code-standart from ANT
         </exec>
     </target>
 
+So now you can start code standart with command:
+```
+ant run-code-standards
+```
 
 #Origin
 [Docker Hub] (https://registry.hub.docker.com/u/cristo/symfony2/)
