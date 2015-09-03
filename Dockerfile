@@ -43,6 +43,14 @@ RUN curl -sS https://getcomposer.org/installer | php
 RUN mv composer.phar /usr/bin/composer
 RUN apt-get update
 
+#Code standart
+RUN composer global require "squizlabs/php_codesniffer=*"
+RUN composer global require "sebastian/phpcpd=*"
+RUN composer global require "phpmd/phpmd=@stable"
+RUN cd /usr/bin && ln -s ~/.composer/vendor/bin/phpcpd
+RUN cd /usr/bin && ln -s ~/.composer/vendor/bin/phpmd
+RUN cd /usr/bin && ln -s ~/.composer/vendor/bin/phpcs
+
 #aliases
 RUN alias ll='ls -la'
 
