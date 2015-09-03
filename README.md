@@ -8,7 +8,6 @@ docker run -i -t -d --name=symfony2 -h=symfony2 -p 80:80 -p 22:22 cristo/symfony
 ```
 user: root 
 password: root
-
 ```
 #SSH
 ```
@@ -66,7 +65,7 @@ Now need to edit your build.xml file to allow start code-standart from ANT
         </exec>
     </target>
 
-So now you can start code standart with command:
+So now you can start code standart with command from your project path:
 ```
 ant run-code-standards
 ```
