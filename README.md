@@ -1,6 +1,6 @@
 #Create container
 ```
-docker run -i -t -d -p 80:80 -p 22:22 cristo/symfony2 /bin/bash
+docker run -i -t -d --name=symfony2 -h=symfony2 -p 80:80 -p 22:22 cristo/symfony2 /bin/bash
 ```
 
 
@@ -32,6 +32,36 @@ server {
                         }
 }
 ```
+
+#Code standart tests
+http://phpmd.org/
+https://github.com/squizlabs/PHP_CodeSniffer
+https://github.com/sebastianbergmann/phpcpd
+
+Now need to edit your build.xml file to allow start code-standart from ANT
+ <!-- Check code standards -->
+    <target name="run-code-standards" depends="run-phpcs,run-phpcpd,run-phpmd" />
+
+    <target name="run-phpcs">
+        <exec dir="${basedir}" executable="phpcs" failonerror="true">
+            <arg line="--encoding=utf-8 --extensions=php --standard=${confdir}/phpcs.xml --report=junit
+                      --report-file=${reportdir}/phpcs.xml ${srcdir}"/>
+        </exec>
+    </target>
+
+    <target name="run-phpmd">
+        <exec dir="${basedir}" executable="phpmd" failonerror="true">
+            <arg line="${srcdir} xml ${confdir}/phpmd.xml --reportfile ${reportdir}/phpmd.xml"/>
+        </exec>
+    </target>
+
+    <target name="run-phpcpd">
+        <exec dir="${basedir}" executable="phpcpd" failonerror="true">
+            <arg line="--min-lines 25 --log-pmd ${reportdir}/phpcpd.xml --verbose"/>
+            <arg line="${srcdir}"/>
+        </exec>
+    </target>
+
 
 #Origin
 [Docker Hub] (https://registry.hub.docker.com/u/cristo/symfony2/)
