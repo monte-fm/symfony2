@@ -33,7 +33,7 @@ server {
 }
 ```
 
-#Code standart tests
+#Code standard tests
 http://phpmd.org/
 https://github.com/squizlabs/PHP_CodeSniffer
 https://github.com/sebastianbergmann/phpcpd
