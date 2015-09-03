@@ -35,11 +35,13 @@ server {
 
 #Code standard tests
 http://phpmd.org/
+
 https://github.com/squizlabs/PHP_CodeSniffer
+
 https://github.com/sebastianbergmann/phpcpd
 
 Now need to edit your build.xml file to allow start code-standart from ANT
- <!-- Check code standards -->
+
     <target name="run-code-standards" depends="run-phpcs,run-phpcpd,run-phpmd" />
 
     <target name="run-phpcs">
