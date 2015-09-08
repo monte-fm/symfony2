@@ -54,5 +54,8 @@ RUN cd /usr/bin && ln -s ~/.composer/vendor/bin/phpcs
 #aliases
 RUN alias ll='ls -la'
 
+#Add colorful command line
+RUN echo "force_color_prompt=yes" >> .bashrc
+
 #open ports
 EXPOSE 80 22
