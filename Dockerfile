@@ -59,9 +59,6 @@ RUN echo "export PS1='${debian_chroot:+($debian_chroot)}\[\033[01;31m\]\u\[\033[
 
 #Autocomplete symfony2
 COPY configs/files/symfony2-autocomplete.bash /etc/bash_completion.d/
-RUN echo "if [ -e /etc/bash_completion.d/symfony2-autocomplete.bash ]; then
-          . /etc/bash_completion.d/symfony2-autocomplete.bash
-      fi" >> ~/.bashrc
 
 #open ports
 EXPOSE 80 22
