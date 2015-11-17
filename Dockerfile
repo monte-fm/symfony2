@@ -39,9 +39,8 @@ RUN sudo apt-get install -y ant
 
 #Composer
 RUN cd /home
-RUN curl -sS https://getcomposer.org/installer | php
-RUN mv composer.phar /usr/bin/composer
-RUN apt-get update
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin/ --filename=composer
+RUN chmod 777 /usr/local/bin/composer
 
 #Code standart
 RUN composer global require "squizlabs/php_codesniffer=*"
@@ -58,6 +57,11 @@ RUN alias ll='ls -la'
 RUN echo "force_color_prompt=yes" >> .bashrc
 RUN echo "export PS1='${debian_chroot:+($debian_chroot)}\[\033[01;31m\]\u\[\033[01;33m\]@\[\033[01;36m\]\h \[\033[01;33m\]\w \[\033[01;35m\]\$ \[\033[00m\]'" >> .bashrc
 
+#Autocomplete symfony2
+COPY configs/files/symfony2-autocomplete.bash /etc/bash_completion.d/
+RUN echo "if [ -e /etc/bash_completion.d/symfony2-autocomplete.bash ]; then
+          . /etc/bash_completion.d/symfony2-autocomplete.bash
+      fi" >> ~/.bashrc
 
 #open ports
 EXPOSE 80 22
