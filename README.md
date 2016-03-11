@@ -31,6 +31,7 @@ server {
                         }
 }
 ```
+You need to change proxy port
 
 #Code standard tests
 Installed packets: 
