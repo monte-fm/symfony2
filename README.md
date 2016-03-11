@@ -71,7 +71,8 @@ So now you can start code standart with command from your project path:
 ant run-code-standards
 ```
 
-#Added etcKeeper - autocommit on exit to /etc git local repository
+# etcKeeper 
+Added etcKeeper - autocommit on exit to /etc git local repository
 
 #Origin
 [Docker Hub] (https://registry.hub.docker.com/u/cristo/symfony2/)
