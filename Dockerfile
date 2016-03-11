@@ -58,7 +58,12 @@ RUN echo "force_color_prompt=yes" >> .bashrc
 RUN echo "export PS1='${debian_chroot:+($debian_chroot)}\[\033[01;31m\]\u\[\033[01;33m\]@\[\033[01;36m\]\h \[\033[01;33m\]\w \[\033[01;35m\]\$ \[\033[00m\]'" >> .bashrc
 
 #Autocomplete symfony2
-COPY configs/files/symfony2-autocomplete.bash /etc/bash_completion.d/
+COPY configs/files/symfony2-autocomplete.bash /root/
+
+#etcKeeper
+COPY configs/etckeeper.sh /root
+COPY configs/files/etckeeper-hook.sh /root
+
 
 #open ports
 EXPOSE 80 22
