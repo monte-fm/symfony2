@@ -24,9 +24,6 @@ HIGHLEVEL_PACKAGE_MANAGER=apt
 LOWLEVEL_PACKAGE_MANAGER=dpkg
 " > /etc/etckeeper/etckeeper.conf
 
-mkdir -p /root/etckeeper
-mv  etckeeper-hook.sh /root/etckeeper/etckeeper-autocommit-on-exit.sh
-
 echo "
 if [ -d /root/etckeeper ] ; then
         for s in /root/etckeeper/*.sh ; do
