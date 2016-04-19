@@ -61,7 +61,11 @@ RUN echo "force_color_prompt=yes" >> .bashrc
 RUN echo "export PS1='${debian_chroot:+($debian_chroot)}\[\033[01;31m\]\u\[\033[01;33m\]@\[\033[01;36m\]\h \[\033[01;33m\]\w \[\033[01;35m\]\$ \[\033[00m\]'" >> .bashrc
 
 #Autocomplete symfony2
-COPY configs/files/symfony2-autocomplete.bash /root/
+
+COPY configs/files/symfony2-autocomplete.bash /etc/bash_completion.d/
+RUN echo "if [ -e /etc/bash_completion.d/symfony2-autocomplete.bash ]; then \
+	. /etc/bash_completion.d/symfony2-autocomplete.bash \
+    fi" >> /etc/bash.bashrc
 
 #etcKeeper
 RUN mkdir -p /root/etckeeper
@@ -69,6 +73,21 @@ COPY configs/etckeeper.sh /root
 COPY configs/files/etckeeper-hook.sh /root/etckeeper
 RUN /root/etckeeper.sh
 
+#Xdebug
+RUN echo "zend_extension=/usr/lib/php5/20121212/xdebug.so \
+    xdebug.default_enable = 1 \
+    xdebug.idekey = PHPSTORM \
+    xdebug.remote_enable = 1 \
+    xdebug.remote_autostart = 1 \
+    xdebug.remote_port = 9000 \
+    xdebug.remote_handler=dbgp \
+    xdebug.remote_log=/var/log/xdebug/xdebug.log \
+    xdebug.remote_connect_back=1 \
+    xdebug.max_nesting_level=250 \
+    xdebug.remote_host = localhost" > /etc/php5/mods-available/xdebug.ini
+RUN echo "export PHP_IDE_CONFIG="serverName=localhost"" >> /home/docker/.bashrc
+RUN echo "export PHP_IDE_CONFIG="serverName=localhost"" >> /root/.bashrc
+
 
 #open ports
-EXPOSE 80 22
+EXPOSE 80 22 9000
