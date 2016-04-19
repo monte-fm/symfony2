@@ -8,14 +8,14 @@ RUN chown -R docker:www-data /home/docker
 RUN echo docker:docker | chpasswd
 
 #install PHP
-RUN apt-get update -y
+RUN apt-get update
 RUN apt-get install -y software-properties-common python-software-properties
 RUN apt-get install -y git git-core vim nano mc nginx screen curl unzip
 RUN apt-get install -y wget php5 php5-fpm php5-cli php5-common php5-intl 
 RUN apt-get install -y php5-json php5-mysql php5-gd php5-imagick
 RUN apt-get install -y php5-curl php5-mcrypt php5-dev php5-xdebug
-RUN sudo rm /etc/php5/fpm/php.ini
-COPY configs/php.ini /etc/php5/fpm/php.ini
+COPY configs/php5-fpm/php.ini /etc/php5/fpm/php.ini
+COPY configs/php5-fpm/www.conf /etc/php5/fpm/pool.d/www.conf
 COPY configs/nginx/default /etc/nginx/sites-available/default
 
 #MySQL install + password
@@ -66,6 +66,12 @@ COPY configs/files/symfony2-autocomplete.bash /etc/bash_completion.d/
 RUN echo "if [ -e /etc/bash_completion.d/symfony2-autocomplete.bash ]; then \
 	. /etc/bash_completion.d/symfony2-autocomplete.bash \
     fi" >> /etc/bash.bashrc
+RUN echo "if [ -e /etc/bash_completion.d/symfony2-autocomplete.bash ]; then \
+	. /etc/bash_completion.d/symfony2-autocomplete.bash \
+    fi" >> /root/.bashrc
+RUN echo "if [ -e /etc/bash_completion.d/symfony2-autocomplete.bash ]; then \
+	. /etc/bash_completion.d/symfony2-autocomplete.bash \
+    fi" >> /home/docker/.bashrc
 
 #etcKeeper
 RUN mkdir -p /root/etckeeper
@@ -74,18 +80,7 @@ COPY configs/files/etckeeper-hook.sh /root/etckeeper
 RUN /root/etckeeper.sh
 
 #Xdebug
-RUN echo "zend_extension=/usr/lib/php5/20121212/xdebug.so \
-    xdebug.default_enable = 1 \
-    xdebug.idekey = PHPSTORM \
-    xdebug.remote_enable = 1 \
-    xdebug.remote_autostart = 1 \
-    xdebug.remote_port = 9000 \
-    xdebug.remote_handler=dbgp \
-    xdebug.remote_log=/var/log/xdebug/xdebug.log \
-    xdebug.remote_connect_back=1 \
-    xdebug.max_nesting_level=250 \
-    xdebug.remote_host = localhost" > /etc/php5/mods-available/xdebug.ini
-RUN echo "export PHP_IDE_CONFIG=serverName=localhost" >> ~/.bashrc
+RUN echo "export PHP_IDE_CONFIG=serverName=localhost" >> /root/.bashrc
 RUN echo "export PHP_IDE_CONFIG=serverName=localhost" >> /home/docker/.bashrc
 
 
