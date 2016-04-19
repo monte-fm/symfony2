@@ -1,6 +1,12 @@
 FROM      ubuntu
 MAINTAINER Olexander Kutsenko <olexander.kutsenko@gmail.com>
 
+#Create docker user
+RUN mkdir -p /home/docker \
+    useradd -d /home/docker -s /bin/bash -M -N -G www-data,root,sudo docker \
+    chown -R docker:www-data /home/docker \
+    echo docker:docker | chpasswd
+
 #install PHP
 RUN apt-get update -y
 RUN apt-get install -y software-properties-common python-software-properties

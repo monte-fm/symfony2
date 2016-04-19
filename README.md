@@ -10,7 +10,12 @@ docker run -i -t -d --name=symfony2 -h=symfony2 -p 1080:80 -p 1022:22 cristo/sym
 user: root 
 password: root
 ```
-#SSH
+# SSH as docker user
+```
+ssh -p1022 docker@localhost
+password: docker
+```
+# SSH as root
 ```
 ssh -p1022 root@localhost
 password: root
