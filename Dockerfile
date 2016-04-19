@@ -3,7 +3,7 @@ MAINTAINER Olexander Kutsenko <olexander.kutsenko@gmail.com>
 
 #Create docker user
 RUN mkdir -p /home/docker \
-    useradd -d /home/docker -s /bin/bash -M -N -G www-data,root,sudo docker \
+    useradd -d /home/docker -s /bin/bash -M -N -G www-data,sudo docker \
     chown -R docker:www-data /home/docker \
     echo docker:docker | chpasswd
 
