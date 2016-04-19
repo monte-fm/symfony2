@@ -85,8 +85,8 @@ RUN echo "zend_extension=/usr/lib/php5/20121212/xdebug.so \
     xdebug.remote_connect_back=1 \
     xdebug.max_nesting_level=250 \
     xdebug.remote_host = localhost" > /etc/php5/mods-available/xdebug.ini
-RUN echo "export PHP_IDE_CONFIG=\"serverName=localhost\"" >> /home/docker/.bashrc
-RUN echo "export PHP_IDE_CONFIG=\"serverName=localhost\"" >> /root/.bashrc
+RUN echo "export PHP_IDE_CONFIG=\"serverName=localhost\"" >> ~/.bashrc
+
 
 
 #open ports
