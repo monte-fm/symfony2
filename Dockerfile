@@ -2,10 +2,10 @@ FROM      ubuntu
 MAINTAINER Olexander Kutsenko <olexander.kutsenko@gmail.com>
 
 #Create docker user
-RUN mkdir -p /home/docker \
-    useradd -d /home/docker -s /bin/bash -M -N -G www-data,sudo docker \
-    chown -R docker:www-data /home/docker \
-    echo docker:docker | chpasswd
+RUN mkdir -p /home/docker
+RUN useradd -d /home/docker -s /bin/bash -M -N -G www-data,sudo docker
+RUN chown -R docker:www-data /home/docker
+RUN echo docker:docker | chpasswd
 
 #install PHP
 RUN apt-get update -y
@@ -86,7 +86,7 @@ RUN echo "zend_extension=/usr/lib/php5/20121212/xdebug.so \
     xdebug.max_nesting_level=250 \
     xdebug.remote_host = localhost" > /etc/php5/mods-available/xdebug.ini
 RUN echo "export PHP_IDE_CONFIG=\"serverName=localhost\"" >> ~/.bashrc
-
+RUN echo "export PHP_IDE_CONFIG=\"serverName=localhost\"" >> /home/docker/.bashrc
 
 
 #open ports
