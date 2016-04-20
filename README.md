@@ -72,8 +72,10 @@ Added etcKeeper - autocommit on exit to /etc git local repository
 
 #XDebug Intellij/PHPStorm setup
 Go to: Languages & Frameworks > PHP > Debug > DBGp Proxy and set the following settings:
+```
     Host: your IP address (example 172.17.0.1 for docker host)
     Port: 9001
+```
 #Origin
 [Docker Hub] (https://registry.hub.docker.com/u/cristo/symfony2/)
 [Git Hub] (https://github.com/monte-fm/symfony2)
