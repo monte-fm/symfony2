@@ -39,8 +39,18 @@ COPY configs/autostart.sh /root/autostart.sh
 RUN chmod +x /root/autostart.sh
 COPY configs/bash.bashrc /etc/bash.bashrc
 
+#Install Java 8
+RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys EEA14886
+RUN add-apt-repository -y ppa:webupd8team/java
+RUN apt-get update
+# Accept license non-iteractive
+RUN echo oracle-java8-installer shared/accepted-oracle-license-v1-1 select true | sudo /usr/bin/debconf-set-selections
+RUN apt-get install -y oracle-java8-installer
+RUN apt-get install -y oracle-java8-set-default
+RUN echo "JAVA_HOME=/usr/lib/jvm/java-8-oracle" | sudo tee -a /etc/environment
+RUN export JAVA_HOME=/usr/lib/jvm/java-8-oracle
+
 #ant install
-RUN sudo apt-get install -y default-jre default-jdk
 RUN sudo apt-get install -y ant
 
 #Composer
@@ -56,33 +66,16 @@ RUN cd /usr/bin && ln -s ~/.composer/vendor/bin/phpcpd
 RUN cd /usr/bin && ln -s ~/.composer/vendor/bin/phpmd
 RUN cd /usr/bin && ln -s ~/.composer/vendor/bin/phpcs
 
-#Add colorful command line
-RUN echo "force_color_prompt=yes" >> .bashrc
-RUN echo "export PS1='${debian_chroot:+($debian_chroot)}\[\033[01;31m\]\u\[\033[01;33m\]@\[\033[01;36m\]\h \[\033[01;33m\]\w \[\033[01;35m\]\$ \[\033[00m\]'" >> .bashrc
-
 #Autocomplete symfony2
-
-COPY configs/files/symfony2-autocomplete.bash /etc/bash_completion.d/
-RUN echo "if [ -e /etc/bash_completion.d/symfony2-autocomplete.bash ]; then \
-	. /etc/bash_completion.d/symfony2-autocomplete.bash \
-    fi" >> /etc/bash.bashrc
-RUN echo "if [ -e /etc/bash_completion.d/symfony2-autocomplete.bash ]; then \
-	. /etc/bash_completion.d/symfony2-autocomplete.bash \
-    fi" >> /root/.bashrc
-RUN echo "if [ -e /etc/bash_completion.d/symfony2-autocomplete.bash ]; then \
-	. /etc/bash_completion.d/symfony2-autocomplete.bash \
-    fi" >> /home/docker/.bashrc
+COPY configs/files/symfony2-autocomplete.bash /etc/bash_completion.d/symfony2-autocomplete.bash
+COPY configs/.bashrc /root/.bashrc
+COPY configs/.bashrc /home/docker/.bashrc
 
 #etcKeeper
 RUN mkdir -p /root/etckeeper
-COPY configs/etckeeper.sh /root
-COPY configs/files/etckeeper-hook.sh /root/etckeeper
+COPY configs/etckeeper.sh /root/etckeeper.sh
+COPY configs/files/etckeeper-hook.sh /root/etckeeper/etckeeper-hook.sh
 RUN /root/etckeeper.sh
-
-#Xdebug
-RUN echo "export PHP_IDE_CONFIG=serverName=localhost" >> /root/.bashrc
-RUN echo "export PHP_IDE_CONFIG=serverName=localhost" >> /home/docker/.bashrc
-
 
 #open ports
 EXPOSE 80 22 9000
