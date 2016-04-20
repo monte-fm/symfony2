@@ -18,6 +18,7 @@ RUN apt-get install -y php5-curl php5-mcrypt php5-dev php5-xdebug
 COPY configs/php5-fpm/php.ini /etc/php5/fpm/php.ini
 COPY configs/php5-fpm/www.conf /etc/php5/fpm/pool.d/www.conf
 COPY configs/nginx/default /etc/nginx/sites-available/default
+COPY configs/php5-fpm/xdebug.ini /etc/php5/mods-available/xdebug.ini
 
 #MySQL install + password
 RUN echo "mysql-server mysql-server/root_password password root" | debconf-set-selections
