@@ -3,7 +3,7 @@
 docker run -i -t -d --name=symfony2 -h=symfony2 -p 1080:80 -p 1022:22 -p 9001:9000 cristo/symfony2 /bin/bash
 ```
 
-#MySQL
+# Percona MySQL 5.6
 ```
 user: root 
 password: root

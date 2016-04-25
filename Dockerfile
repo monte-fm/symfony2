@@ -20,10 +20,15 @@ COPY configs/php5-fpm/www.conf /etc/php5/fpm/pool.d/www.conf
 COPY configs/nginx/default /etc/nginx/sites-available/default
 COPY configs/php5-fpm/xdebug.ini /etc/php5/mods-available/xdebug.ini
 
-#MySQL install + password
+#Install Percona Mysql 5.6 server
+RUN wget https://repo.percona.com/apt/percona-release_0.1-3.$(lsb_release -sc)_all.deb
+RUN dpkg -i percona-release_0.1-3.$(lsb_release -sc)_all.deb
+RUN rm percona-release_0.1-3.$(lsb_release -sc)_all.deb
+RUN apt-get update
 RUN echo "mysql-server mysql-server/root_password password root" | debconf-set-selections
 RUN echo "mysql-server mysql-server/root_password_again password root" | debconf-set-selections
-RUN sudo apt-get  install -y mysql-server mysql-client
+RUN apt-get install -y percona-server-server-5.6
+COPY configs/mysql/my.cnf /etc/mysql/my.cnf
 
 # SSH service
 RUN sudo apt-get install -y openssh-server openssh-client
