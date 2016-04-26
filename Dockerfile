@@ -1,4 +1,4 @@
-FROM      ubuntu
+FROM      ubuntu:14.04
 MAINTAINER Olexander Kutsenko <olexander.kutsenko@gmail.com>
 
 #Create docker user
