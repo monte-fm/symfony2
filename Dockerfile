@@ -2,6 +2,8 @@ FROM      ubuntu:14.04.4
 MAINTAINER Olexander Kutsenko <olexander.kutsenko@gmail.com>
 
 #Install Java 8
+RUN apt-get update
+RUN apt-get install -y software-properties-common python-software-properties
 RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys EEA14886
 RUN add-apt-repository -y ppa:webupd8team/java
 RUN apt-get update
@@ -23,8 +25,6 @@ RUN echo docker:docker | chpasswd
 RUN usermod -G www-data,users www-data
 
 #install PHP
-RUN apt-get update
-RUN apt-get install -y software-properties-common python-software-properties
 RUN apt-get install -y git git-core vim nano mc nginx screen curl unzip
 RUN apt-get install -y wget php5 php5-fpm php5-cli php5-common php5-intl 
 RUN apt-get install -y php5-json php5-mysql php5-gd php5-imagick
