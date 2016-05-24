@@ -1,6 +1,20 @@
 FROM      ubuntu:14.04.4
 MAINTAINER Olexander Kutsenko <olexander.kutsenko@gmail.com>
 
+#Install Java 8
+RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys EEA14886
+RUN add-apt-repository -y ppa:webupd8team/java
+RUN apt-get update
+# Accept license non-iteractive
+RUN echo oracle-java8-installer shared/accepted-oracle-license-v1-1 select true | sudo /usr/bin/debconf-set-selections
+RUN apt-get install -y oracle-java8-installer
+RUN apt-get install -y oracle-java8-set-default
+RUN echo "JAVA_HOME=/usr/lib/jvm/java-8-oracle" | sudo tee -a /etc/environment
+RUN export JAVA_HOME=/usr/lib/jvm/java-8-oracle
+
+#ant install
+RUN sudo apt-get install -y ant
+
 #Create docker user
 RUN mkdir -p /home/docker
 RUN useradd -d /home/docker -s /bin/bash -M -N -G www-data,sudo,root docker
@@ -49,20 +63,6 @@ COPY configs/bash.bashrc /etc/bash.bashrc
 #Install locale
 RUN locale-gen en_US.UTF-8
 RUN dpkg-reconfigure locales
-
-#Install Java 8
-RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys EEA14886
-RUN add-apt-repository -y ppa:webupd8team/java
-RUN apt-get update
-# Accept license non-iteractive
-RUN echo oracle-java8-installer shared/accepted-oracle-license-v1-1 select true | sudo /usr/bin/debconf-set-selections
-RUN apt-get install -y oracle-java8-installer
-RUN apt-get install -y oracle-java8-set-default
-RUN echo "JAVA_HOME=/usr/lib/jvm/java-8-oracle" | sudo tee -a /etc/environment
-RUN export JAVA_HOME=/usr/lib/jvm/java-8-oracle
-
-#ant install
-RUN sudo apt-get install -y ant
 
 #Composer
 RUN cd /home
