@@ -1,5 +1,5 @@
 FROM      ubuntu:14.04.4
-MAINTAINER Olexander Kutsenko <olexander.kutsenko@gmail.com>
+MAINTAINER Oleksander Kutsenko <olexander.kutsenko@gmail.com>
 
 #Install Java 8
 RUN apt-get update
@@ -25,10 +25,10 @@ RUN echo docker:docker | chpasswd
 RUN usermod -G www-data,users www-data
 
 #install PHP
-RUN apt-get install -y git git-core vim nano mc nginx screen curl zip unzip
-RUN apt-get install -y wget php5 php5-fpm php5-cli php5-common php5-intl 
-RUN apt-get install -y php5-json php5-mysql php5-gd php5-imagick
-RUN apt-get install -y php5-curl php5-mcrypt php5-dev php5-xdebug
+RUN apt-get install -y git git-core vim nano mc nginx tmux curl zip unzip \
+    wget php5 php5-fpm php5-cli php5-common php5-intl \
+    php5-json php5-mysql php5-gd php5-imagick \
+    php5-curl php5-mcrypt php5-dev php5-xdebug \
 COPY configs/php5-fpm/php.ini /etc/php5/fpm/php.ini
 COPY configs/php5-fpm/www.conf /etc/php5/fpm/pool.d/www.conf
 COPY configs/nginx/default /etc/nginx/sites-available/default
