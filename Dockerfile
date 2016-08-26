@@ -28,7 +28,7 @@ RUN usermod -G www-data,users www-data
 RUN apt-get install -y git git-core vim nano mc nginx tmux curl zip unzip \
     wget php5 php5-fpm php5-cli php5-common php5-intl \
     php5-json php5-mysql php5-gd php5-imagick \
-    php5-curl php5-mcrypt php5-dev php5-xdebug \
+    php5-curl php5-mcrypt php5-dev php5-xdebug
 COPY configs/php5-fpm/php.ini /etc/php5/fpm/php.ini
 COPY configs/php5-fpm/www.conf /etc/php5/fpm/pool.d/www.conf
 COPY configs/nginx/default /etc/nginx/sites-available/default
